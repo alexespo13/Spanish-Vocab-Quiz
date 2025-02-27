@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Daily Quiz</h1>
+  <label for="day-input">Enter Day Number (1-365):</label>
+  <input type="number" id="day-input" min="1" max="365" value="1">
+  <button onclick="startDailyQuiz()">Start Quiz</button>
+  
+  <div id="quiz-container"></div>
+  
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
