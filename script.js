@@ -1,10 +1,32 @@
 // script.js
-function loadDay() {
-  const day = document.getElementById('day-input').value;
-  if (day < 1 || day > 365) {
-    alert('Please enter a valid day number between 1 and 365.');
-    return;
+function getCurrentDay() {
+  const storedDay = localStorage.getItem('currentDay');
+  return storedDay ? parseInt(storedDay) : 1;
+}
+
+function setCurrentDay(day) {
+  localStorage.setItem('currentDay', day);
+  updateCurrentDayDisplay();
+}
+
+function updateCurrentDayDisplay() {
+  const currentDay = getCurrentDay();
+  const dayElement = document.getElementById('current-day');
+  if (dayElement) dayElement.textContent = currentDay;
+}
+
+function nextDay() {
+  let currentDay = getCurrentDay();
+  if (currentDay < 365) {
+    currentDay++;
+    setCurrentDay(currentDay);
+  } else {
+    alert("You've reached the end of the year!");
   }
+}
+
+function loadDay() {
+  const day = getCurrentDay();
   const words = data.words.filter(item => item.day == day);
   const phrases = data.phrases.filter(item => item.day == day);
   
@@ -26,21 +48,13 @@ function loadDay() {
 }
 
 function startDailyQuiz() {
-  const day = document.getElementById('day-input').value;
-  if (day < 1 || day > 365) {
-    alert('Please enter a valid day number between 1 and 365.');
-    return;
-  }
+  const day = getCurrentDay();
   const items = [...data.words.filter(item => item.day == day), ...data.phrases.filter(item => item.day == day)];
   generateQuiz(items, 'Daily', day);
 }
 
 function startWeeklyQuiz() {
-  const day = document.getElementById('day-input').value;
-  if (day < 1 || day > 365) {
-    alert('Please enter a valid day number between 1 and 365.');
-    return;
-  }
+  const day = getCurrentDay();
   const weekStart = Math.max(1, day - 6);
   const items = [...data.words, ...data.phrases].filter(item => item.day >= weekStart && item.day <= day);
   const selectedItems = items.slice(0, 10); // Select 10 items
@@ -48,11 +62,7 @@ function startWeeklyQuiz() {
 }
 
 function startMonthlyQuiz() {
-  const day = document.getElementById('day-input').value;
-  if (day < 1 || day > 365) {
-    alert('Please enter a valid day number between 1 and 365.');
-    return;
-  }
+  const day = getCurrentDay();
   const monthStart = Math.max(1, day - 29);
   const items = [...data.words, ...data.phrases].filter(item => item.day >= monthStart && item.day <= day);
   const selectedItems = items.slice(0, 20); // Select 20 items
@@ -89,6 +99,7 @@ function generateQuiz(items, type, period) {
         button.disabled = true;
         if (index === items.length - 1 && Array.from(question.parentElement.children).every(q => q.querySelectorAll('button:not(:disabled)').length === 0)) {
           saveProgress(type, period, `${score}/${items.length}`);
+          if (type === 'Daily') nextDay(); // Move to next day after daily quiz
         }
       };
       question.appendChild(button);
