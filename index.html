@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Spanish - Argentinian Focus</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Learn Spanish - Daily Words & Phrases</h1>
+  <label for="day-input">Enter Day Number (1-365):</label>
+  <input type="number" id="day-input" min="1" max="365" value="1">
+  <button onclick="loadDay()">Load Day</button>
+  
+  <h2>Words</h2>
+  <ul id="words-list"></ul>
+  
+  <h2>Phrases</h2>
+  <ul id="phrases-list"></ul>
+  
+  <nav>
+    <a href="daily_quiz.html">Daily Quiz</a>
+    <a href="weekly_quiz.html">Weekly Quiz</a>
+    <a href="monthly_quiz.html">Monthly Quiz</a>
+    <a href="progress.html">View Progress</a>
+  </nav>
+  
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
