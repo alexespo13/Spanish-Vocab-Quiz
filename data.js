@@ -2554,8 +2554,8 @@ words: [
   { day: 365, spanish: "pindongueo", English: "flirt chaos", part_of_speech: "noun" },
   { day: 365, spanish: "abriré", English: "I will open", part_of_speech: "verb" },
   { day: 365, spanish: "pesada", English: "heavy (fem.)", part_of_speech: "adjective" },
-  { day: 365, spanish: "lentamente", English: "slowly", part_of_speech: "adverb" }
-],
+  { day: 365, spanish: "lentamente", English: "slowly", part_of_speech: "adverb" },
+];
 
 phrases: [
    // Day 1
@@ -5104,5 +5104,5 @@ phrases: [
   { day: 365, spanish: "Es un pindongueo pesado.", English: "It’s an annoying flirt chaos." },
   { day: 365, spanish: "Abriré para salir.", English: "I’ll open to leave." },
   { day: 365, spanish: "Es una puerta pesada.", English: "It’s a heavy door." },
-  { day: 365, spanish: "Abro lentamente.", English: "I open slowly." }
-]
+  { day: 365, spanish: "Abro lentamente.", English: "I open slowly." },
+];
