@@ -5106,3 +5106,5 @@ phrases: [
   { day: 365, spanish: "Es una puerta pesada.", English: "It’s a heavy door." },
   { day: 365, spanish: "Abro lentamente.", English: "I open slowly." },
 ];
+
+console.log("Data loaded - Words:", words.length, "Phrases:", phrases.length); // Should log 1825 each
