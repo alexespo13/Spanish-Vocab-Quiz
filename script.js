@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function getCurrentDay() {
-  const today = new Date().getDayOfYear(); // Day of year (1-365)
+  const today = new Date().getDayOfYear();
   return today > 0 && today <= 365 ? today : 1; // Fallback to Day 1
 }
 
@@ -22,7 +22,6 @@ function updateCurrentDayDisplay() {
   const currentDay = getCurrentDay();
   const dayElement = document.getElementById("current-day");
   if (dayElement) dayElement.textContent = currentDay;
-  if (document.getElementById("words-list")) loadDay(); // Auto-load for index.html
 }
 
 function loadDay() {
@@ -30,20 +29,29 @@ function loadDay() {
   const dayWords = words.filter(item => item.day === currentDay);
   const dayPhrases = phrases.filter(item => item.day === currentDay);
   
-  console.log("Loading Day:", currentDay, "Words:", dayWords, "Phrases:", dayPhrases);
+  console.log("Load Day:", currentDay, "Words:", dayWords, "Phrases:", dayPhrases);
   
   const wordsList = document.getElementById("words-list");
   const phrasesList = document.getElementById("phrases-list");
   
-  wordsList.innerHTML = dayWords.map(item => `<li>${item.spanish} - ${item.English}</li>`).join("");
-  phrasesList.innerHTML = dayPhrases.map(item => `<li>${item.spanish} - ${item.English}</li>`).join("");
+  if (wordsList && phrasesList) {
+    wordsList.innerHTML = dayWords.length > 0 
+      ? dayWords.map(item => `<li>${item.spanish} - ${item.English}</li>`).join("")
+      : "<li>No words for this day.</li>";
+    phrasesList.innerHTML = dayPhrases.length > 0 
+      ? dayPhrases.map(item => `<li>${item.spanish} - ${item.English}</li>`).join("")
+      : "<li>No phrases for this day.</li>";
+  }
 }
 
 function nextDay() {
-  let currentDay = parseInt(document.getElementById("current-day").textContent);
-  currentDay = (currentDay % 365) + 1;
-  document.getElementById("current-day").textContent = currentDay;
-  loadDay();
+  const dayElement = document.getElementById("current-day");
+  if (dayElement) {
+    let currentDay = parseInt(dayElement.textContent);
+    currentDay = (currentDay % 365) + 1;
+    dayElement.textContent = currentDay;
+    loadDay();
+  }
 }
 
 function startDailyQuiz() {
@@ -51,11 +59,13 @@ function startDailyQuiz() {
   const dayData = words.filter(item => item.day === currentDay).concat(phrases.filter(item => item.day === currentDay));
   const display = document.getElementById("quiz-container");
   
-  console.log("Quiz Day:", currentDay, "Data:", dayData); // Debug
+  console.log("Quiz Day:", currentDay, "Data:", dayData);
   
-  display.innerHTML = dayData.length > 0 
-    ? dayData.map(item => `<p>${item.spanish} - ${item.English}</p>`).join("")
-    : "No quiz data for today.";
+  if (display) {
+    display.innerHTML = dayData.length > 0 
+      ? dayData.map(item => `<p>${item.spanish} - ${item.English}</p>`).join("")
+      : "<p>No quiz data for today.</p>";
+  }
 }
 
 // Date helper
