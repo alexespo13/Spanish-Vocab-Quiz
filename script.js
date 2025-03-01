@@ -54,12 +54,17 @@ function nextDay() {
   }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const startQuizButton = document.getElementById("startQuizButton");
+  if (startQuizButton) {
+    startQuizButton.addEventListener("click", startDailyQuiz);
+  }
+});
+
 function startDailyQuiz() {
-  const currentDay = parseInt(document.getElementById("current-day").textContent);
+  const currentDay = getCurrentDay(); // Or use a hardcoded day for testing (e.g., 58)
   const dayData = words.filter(item => item.day === currentDay).concat(phrases.filter(item => item.day === currentDay));
   const display = document.getElementById("quiz-container");
-  
-  console.log("Quiz Day:", currentDay, "Data:", dayData);
   
   if (display) {
     display.innerHTML = dayData.length > 0 
