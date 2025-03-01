@@ -62,14 +62,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function startDailyQuiz() {
-  const currentDay = getCurrentDay(); // Or use a hardcoded day for testing (e.g., 58)
-  const dayData = words.filter(item => item.day === currentDay).concat(phrases.filter(item => item.day === currentDay));
-  const display = document.getElementById("quiz-container");
+  const currentDay = getCurrentDay();
+  console.log("Quiz Day:", currentDay);              // Check the day being used
+  console.log("Words array length:", words.length);  // Verify words data is loaded
+  console.log("Phrases array length:", phrases.length); // Verify phrases data is loaded
   
+  const dayData = words.filter(item => item.day === currentDay).concat(phrases.filter(item => item.day === currentDay));
+  console.log("Quiz Data:", dayData);                // See what data is fetched
+  
+  const display = document.getElementById("quiz-container");
   if (display) {
+    console.log("Display element found");            // Confirm the container exists
     display.innerHTML = dayData.length > 0 
       ? dayData.map(item => `<p>${item.spanish} - ${item.English}</p>`).join("")
       : "<p>No quiz data for today.</p>";
+  } else {
+    console.log("Error: #quiz-container not found"); // Alert if the container is missing
   }
 }
 
